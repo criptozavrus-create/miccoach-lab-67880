@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import o2Logo from "../assets/o2-logo-square.png";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -116,7 +117,13 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-secondary/20 p-4">
-      <Card className="w-full max-w-md">
+      <div className="w-full max-w-md space-y-6">
+        <Link to="/" className="flex items-center justify-center gap-3 hover:opacity-80 transition-opacity">
+          <img src={o2Logo} alt="O2 Platform" className="h-16 w-16" />
+          <span className="text-2xl font-bold text-primary">O2 Platform</span>
+        </Link>
+        
+        <Card className="w-full">
         <CardHeader className="space-y-2">
           <CardTitle className="text-3xl font-bold text-center">Партнёрская программа</CardTitle>
           <CardDescription className="text-center">
@@ -216,6 +223,7 @@ const Auth = () => {
           </Tabs>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 };
