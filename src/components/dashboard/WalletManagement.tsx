@@ -50,8 +50,19 @@ export const WalletManagement = ({ userId }: WalletManagementProps) => {
   const handleSaveWallet = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!walletAddress.trim()) {
+    const trimmedAddress = walletAddress.trim();
+    
+    if (!trimmedAddress) {
       toast.error("Введите адрес кошелька");
+      return;
+    }
+
+    // Validate USDT wallet address format (ERC20 or TRC20)
+    const erc20Pattern = /^0x[a-fA-F0-9]{40}$/;
+    const trc20Pattern = /^T[a-zA-Z0-9]{33}$/;
+    
+    if (!erc20Pattern.test(trimmedAddress) && !trc20Pattern.test(trimmedAddress)) {
+      toast.error("Неверный формат адреса USDT. Используйте ERC20 (0x...) или TRC20 (T...)");
       return;
     }
 
@@ -61,7 +72,7 @@ export const WalletManagement = ({ userId }: WalletManagementProps) => {
         // Update existing wallet
         const { error } = await supabase
           .from("wallets")
-          .update({ wallet_address: walletAddress })
+          .update({ wallet_address: trimmedAddress })
           .eq("user_id", userId);
 
         if (error) throw error;
@@ -70,7 +81,7 @@ export const WalletManagement = ({ userId }: WalletManagementProps) => {
         // Insert new wallet
         const { error } = await supabase
           .from("wallets")
-          .insert({ user_id: userId, wallet_address: walletAddress });
+          .insert({ user_id: userId, wallet_address: trimmedAddress });
 
         if (error) throw error;
         toast.success("Кошелёк добавлен");
@@ -114,13 +125,14 @@ export const WalletManagement = ({ userId }: WalletManagementProps) => {
               <Input
                 id="wallet-address"
                 type="text"
-                placeholder="0x..."
+                placeholder="0x... или T..."
                 value={walletAddress}
                 onChange={(e) => setWalletAddress(e.target.value)}
+                maxLength={64}
                 required
               />
               <p className="text-xs text-muted-foreground">
-                Введите адрес вашего кошелька для получения выплат
+                Поддерживаются адреса USDT: ERC20 (Ethereum) или TRC20 (Tron)
               </p>
             </div>
             <Button type="submit" disabled={saving} className="w-full">
