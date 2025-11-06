@@ -22,7 +22,7 @@ const Running = () => {
       <div className="bg-slate-800 border-b border-slate-700 p-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <img src={o2Logo} alt="O2 Coaching" className="h-14 w-14" />
+            <img src={o2Logo} alt="AI Syndicate" className="h-14 w-14" />
             <div>
               <h1 className="text-2xl font-bold text-lime-400">{t('app_title')}</h1>
               <p className="text-slate-400 text-sm">{t('app_subtitle_running')}</p>

@@ -119,8 +119,8 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-secondary/20 p-4">
       <div className="w-full max-w-md space-y-6">
         <Link to="/" className="flex items-center justify-center gap-3 hover:opacity-80 transition-opacity">
-          <img src={o2Logo} alt="O2 Platform" className="h-16 w-16" />
-          <span className="text-2xl font-bold text-primary">O2 Platform</span>
+          <img src={o2Logo} alt="AI Syndicate" className="h-16 w-16" />
+          <span className="text-2xl font-bold text-primary">AI Syndicate</span>
         </Link>
         
         <Card className="w-full">
