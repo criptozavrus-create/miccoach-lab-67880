@@ -133,6 +133,25 @@ export type Database = {
     }
     Functions: {
       generate_referral_code: { Args: never; Returns: string }
+      get_level_statistics: {
+        Args: { root_user_id: string }
+        Returns: {
+          level: number
+          partner_count: number
+          total_earnings: number
+        }[]
+      }
+      get_referral_network: {
+        Args: { root_user_id: string }
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          has_wallet: boolean
+          referral_level: number
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

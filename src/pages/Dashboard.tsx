@@ -10,6 +10,8 @@ import { Loader2, LogOut, Copy, Check } from "lucide-react";
 import { StatsCards } from "@/components/dashboard/StatsCards";
 import { TransactionHistory } from "@/components/dashboard/TransactionHistory";
 import { WalletManagement } from "@/components/dashboard/WalletManagement";
+import { ReferralNetwork } from "@/components/dashboard/ReferralNetwork";
+import { LevelStats } from "@/components/dashboard/LevelStats";
 
 interface Profile {
   id: string;
@@ -144,11 +146,21 @@ const Dashboard = () => {
         {user && <StatsCards userId={user.id} />}
 
         {/* Tabs Section */}
-        <Tabs defaultValue="transactions" className="mt-6">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="transactions">История начислений</TabsTrigger>
+        <Tabs defaultValue="partners" className="mt-6">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="partners">Партнёры</TabsTrigger>
+            <TabsTrigger value="levels">По линиям</TabsTrigger>
+            <TabsTrigger value="transactions">Начисления</TabsTrigger>
             <TabsTrigger value="wallet">Кошелёк</TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="partners" className="mt-6">
+            {user && <ReferralNetwork userId={user.id} />}
+          </TabsContent>
+          
+          <TabsContent value="levels" className="mt-6">
+            {user && <LevelStats userId={user.id} />}
+          </TabsContent>
           
           <TabsContent value="transactions" className="mt-6">
             {user && <TransactionHistory userId={user.id} />}
